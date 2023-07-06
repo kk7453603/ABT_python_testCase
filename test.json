@@ -1,0 +1,114 @@
+{
+  "game": {
+    "name": "game_name",
+    "game_settings": {
+      "tactics": {
+        "remove_answer": 1111111111,
+        "one_for_all": 1111111111,
+        "question_bet": 1111111111,
+        "all_in": 1111111111,
+        "team_bet": 1111111111
+      }
+    },
+    "rounds": [
+      {
+        "type": "blitz",
+        "settings": {
+          "is_test": false,
+          "name": "round_name",
+          "display_name": false,
+          "time_to_answer": 120
+        },
+        "questions": [
+          {
+            "type": "text",
+            "question": "some_question",
+            "correct_answer": "answr"
+          },
+          {
+            "type": "text",
+            "question": "some_question",
+            "correct_answer": "answr"
+          }
+        ]
+      },
+      {
+        "type": "classical",
+        "settings": {
+          "is_test": false,
+          "name": "round_name",
+          "display_name": false,
+          "time_to_answer": 25,
+          "use_special_tactics": true,
+          "tactics": {
+            "remove_answer": 1,
+            "one_for_all": 2,
+            "question_bet": 3,
+            "all_in": 4,
+            "team_bet": 5
+          }
+        },
+        "questions": [
+          {
+            "type": "text",
+            "question": "some_question",
+            "answers": "",
+            "correct_answer": "qqqqq",
+            "time_to_answer": 0,
+            "media_data": {
+              "image": {
+                "displayed": false,
+                "path": "path"
+              },
+              "video_before": "video_name",
+              "video_after": "video_name"
+            }
+          },
+          {
+            "type": "select",
+            "question": "some_question",
+            "answers": [
+              "first",
+              "second",
+              "third",
+              "fourth"
+            ],
+            "correct_answer": 2,
+            "time_to_answer": 0,
+            "media_data": {
+              "image": {
+                "displayed": false,
+                "path": "path"
+              },
+              "video_before": "video_name",
+              "video_after": "video_name"
+            }
+          },
+          {
+            "type": "multiselect",
+            "question": "some_question",
+            "answers": [
+              "first",
+              "second",
+              "third",
+              "fourth"
+            ],
+            "correct_answer": [
+              0,
+              1
+            ],
+            "time_to_answer": 129,
+            "media_data": {
+              "image": {
+                "displayed": false,
+                "path": "path"
+              },
+              "video_before": "video_name",
+              "video_after": "video_name"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
