@@ -2,7 +2,13 @@ from functools import wraps
 
 
 def cls_method_decorator(param: int):
-    raise NotImplementedError
+    def output_method(fn):
+        def _wrapper(self):
+            self.increment_var(param)
+            return fn(self)
+        return _wrapper
+    return output_method
+
 
 
 class SomeClass:
