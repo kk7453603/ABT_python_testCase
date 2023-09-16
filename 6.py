@@ -1,6 +1,7 @@
 import json
 import os
 import subprocess
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Optional
@@ -12,6 +13,15 @@ class ChainData:
     prev_item_id: Optional[int]
     next_item_id: Optional[int]
     data: str
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "prev_item_id": self.prev_item_id,
+            "next_item_id": self.next_item_id,
+            "data": self.data
+        }
+    """Метод для сериализации в json"""
 
 
 @dataclass
@@ -33,7 +43,12 @@ def check_chain(filepath: Path) -> bool:
 
 
 def solution(response: Response) -> Path:
-    raise NotImplementedError
+    response.items.sort(key=lambda x: x.id)
+    tmp=tempfile.NamedTemporaryFile(suffix='.json') #Создаем временный фал типа json
+    with open(tmp.name, 'w', encoding='utf-8') as file:
+        json.dump([item.to_dict() for item in response.items], file, indent=2)
+    #Указываем способ сериализации
+    return Path(tmp.name)
 
 
 def main():
@@ -48,8 +63,8 @@ def main():
     # путь до файла передать в check_chain
 
     filepath = solution(response)
-
-    if check_chain(filepath):
+    print(filepath)
+    if check_chain(filepath): #Вылетает ошибка Can't open json file .Все шло хорошо, но я не понимаю как это пофиксить
         print("Success")
     else:
         print("Fail")
