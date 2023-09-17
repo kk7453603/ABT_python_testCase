@@ -44,7 +44,9 @@ def check_chain(filepath: Path) -> bool:
 
 def solution(response: Response) -> Path:
     response.items.sort(key=lambda x: x.id)
-    tmp=tempfile.NamedTemporaryFile(suffix='.json') #Создаем временный фал типа json
+    print(response)
+    print([item.to_dict() for item in response.items])
+    tmp=tempfile.NamedTemporaryFile(suffix='.json',delete=False) #Создаем временный фал типа json
     with open(tmp.name, 'w', encoding='utf-8') as file:
         json.dump([item.to_dict() for item in response.items], file, indent=2)
     #Указываем способ сериализации
@@ -64,7 +66,7 @@ def main():
 
     filepath = solution(response)
     print(filepath)
-    if check_chain(filepath): #Вылетает ошибка Can't open json file .Все шло хорошо, но я не понимаю как это пофиксить
+    if check_chain(filepath):
         print("Success")
     else:
         print("Fail")
