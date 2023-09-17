@@ -25,6 +25,16 @@ class ChainData:
 
 
 @dataclass
+class SerializedResponse:
+    items: List[dict]
+    total: int
+    def to_dict(self):
+        return {
+            "items": self.items,
+            "total": self.total,
+        }
+
+@dataclass
 class Response:
     items: List[ChainData]
     total: int
@@ -44,11 +54,11 @@ def check_chain(filepath: Path) -> bool:
 
 def solution(response: Response) -> Path:
     response.items.sort(key=lambda x: x.id)
-    print(response)
-    print([item.to_dict() for item in response.items])
+    serialized_items = [item.to_dict() for item in response.items]
+    serialized_response = SerializedResponse(items=serialized_items,total=response.total)
     tmp=tempfile.NamedTemporaryFile(suffix='.json',delete=False) #Создаем временный фал типа json
     with open(tmp.name, 'w', encoding='utf-8') as file:
-        json.dump([item.to_dict() for item in response.items], file, indent=2)
+        json.dump(serialized_response.to_dict(), file, indent=2)
     #Указываем способ сериализации
     return Path(tmp.name)
 
@@ -65,7 +75,6 @@ def main():
     # путь до файла передать в check_chain
 
     filepath = solution(response)
-    print(filepath)
     if check_chain(filepath):
         print("Success")
     else:
